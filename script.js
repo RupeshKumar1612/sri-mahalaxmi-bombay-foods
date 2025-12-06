@@ -1,35 +1,86 @@
-const menu = [
-    { name: "Vada Pav", price: 25, img: "images/vadapav.jpg" },
-    { name: "Bread Pakoda", price: 30, img: "images/breadpakoda.jpg" },
-    { name: "Grill Veg Sandwich", price: 70, img: "images/sandwich.jpg" },
-    { name: "Grill Veg Sandwich (Cheese)", price: 80, img: "images/sandwich.jpg" },
-    { name: "Grill Aloo Sandwich", price: 70, img: "images/sandwich.jpg" },
-    { name: "Grill Aloo Sandwich (Cheese)", price: 80, img: "images/sandwich.jpg" },
-    { name: "Bread Butter Cheese Sandwich", price: 60, img: "images/sandwich.jpg" },
-    { name: "Sarvapindi", price: 30, img: "images/sarvapindi.jpg" },
-    { name: "Pav Bhaji", price: 80, img: "images/pavbhaji.jpg" },
-    { name: "Misal Pav", price: 80, img: "images/misalpav.jpg" },
-    { name: "Mirchi Bajji", price: 30, img: "images/mirchibajji.jpg" },
-    { name: "Cut Mirchi", price: 50, img: "images/cutmirchi.jpg" }
-];
+let cart = [];
 
-const container = document.getElementById("menu-items");
+// Add item to cart (merges duplicates)
+function addToCart(item) {
+    let existing = cart.find(x => x.id === item.id);
 
-menu.forEach((item, index) => {
-    container.innerHTML += `
-        <div class="menu-item">
-            <img src="${item.img}">
-            <h3>${item.name}</h3>
-            <p>₹${item.price}</p>
-            <button onclick="addToCart(${index})">Add to Cart</button>
-        </div>
-    `;
-});
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({ ...item, qty: 1 });
+    }
 
-function addToCart(i) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(menu[i]);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCart();
+}
 
-    document.getElementById("cart-count").textContent = cart.length;
+// Update cart UI
+function updateCart() {
+    let cartContainer = document.getElementById("cart-items");
+    let totalAmount = 0;
+
+    cartContainer.innerHTML = "";
+
+    cart.forEach((item, index) => {
+        totalAmount += item.price * item.qty;
+
+        cartContainer.innerHTML += `
+            <div class="cart-item">
+                <span>${item.name} (₹${item.price})</span>
+                
+                <div class="qty-box">
+                    <button onclick="decreaseQty(${index})">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="increaseQty(${index})">+</button>
+                </div>
+
+                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+            </div>
+        `;
+    });
+
+    document.getElementById("cart-total").innerText = `Total: ₹${totalAmount}`;
+}
+
+// Increase quantity
+function increaseQty(index) {
+    cart[index].qty += 1;
+    updateCart();
+}
+
+// Decrease quantity
+function decreaseQty(index) {
+    if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+    } else {
+        cart.splice(index, 1);
+    }
+    updateCart();
+}
+
+// Remove item
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCart();
+}
+
+// WhatsApp ordering
+function sendWhatsAppOrder() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let message = "Hello! I want to place an order:%0A%0A";
+
+    cart.forEach(item => {
+        message += `• ${item.name} x ${item.qty} = ₹${item.price * item.qty}%0A`;
+    });
+
+    let total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    message += `%0ATotal Amount: ₹${total}%0A%0AThank you!`;
+
+    let phoneNumber = "919398404928"; // Replace with your shop WhatsApp number
+
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
 }

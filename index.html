@@ -1,20 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sri Mahalaxmi Bombay Foods</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-<header>
-    <h1>Sri Mahalaxmi Bombay Foods</h1>
-    <a href="cart.html" class="cart-icon">🛒 <span id="cart-count">0</span></a>
-</header>
+    <!-- HEADER -->
+    <header class="header">
+        <h1>Sri Mahalaxmi Bombay Foods</h1>
+        <p>Authentic Mumbai Street Food in Nizamabad</p>
+    </header>
 
-<div class="menu-container" id="menu-items"></div>
+    <!-- MENU SECTION -->
+    <section class="menu">
+        <h2>Menu</h2>
 
-<script src="script.js"></script>
+        <div class="menu-grid">
+
+            <!-- Vada Pav -->
+            <div class="item-card">
+                <h3>Vada Pav</h3>
+                <p class="price">₹25</p>
+                <button onclick="addToCart({id:1, name:'Vada Pav', price:25})" class="btn">Add to Cart</button>
+            </div>
+
+            <!-- Bread Pakoda -->
+            <div class="item-card">
+                <h3>Bread Pakoda</h3>
+                <p class="price">₹30</p>
+                <button onclick="addToCart({id:2, name:'Bread Pakoda', price:30})" class="btn">Add to Cart</button>
+            </div>
+
+            <!-- Grill Sandwiches -->
+            <div class="item-card">
+                <h3>Veg Grill Sandwich</h3>
+                <p class="price">₹70</p>
+                <button onclick="addToCart({id:3, name:'Veg Grill Sandwich', price:70})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Veg Grill Sandwich (Cheese)</h3>
+                <p class="price">₹80</p>
+                <button onclick="addToCart({id:4, name:'Veg Grill Sandwich with Cheese', price:80})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Aloo Grill Sandwich</h3>
+                <p class="price">₹70</p>
+                <button onclick="addToCart({id:5, name:'Aloo Grill Sandwich', price:70})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Aloo Grill Sandwich (Cheese)</h3>
+                <p class="price">₹80</p>
+                <button onclick="addToCart({id:6, name:'Aloo Grill Sandwich with Cheese', price:80})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Kids Bread Butter Cheese</h3>
+                <p class="price">₹60</p>
+                <button onclick="addToCart({id:7, name:'Kids Bread Butter Cheese', price:60})" class="btn">Add toCart</button>
+            </div>
+
+            <!-- Others -->
+            <div class="item-card">
+                <h3>Sarvapindi</h3>
+                <p class="price">₹30</p>
+                <button onclick="addToCart({id:8, name:'Sarvapindi', price:30})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Pav Bhaji</h3>
+                <p class="price">₹80</p>
+                <button onclick="addToCart({id:9, name:'Pav Bhaji', price:80})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Misal Pav</h3>
+                <p class="price">₹80</p>
+                <button onclick="addToCart({id:10, name:'Misal Pav', price:80})" class="btn">Add to Cart</button>
+            </div>
+
+            <!-- Optional -->
+            <div class="item-card">
+                <h3>Mirchi Bajji</h3>
+                <p class="price">₹30</p>
+                <button onclick="addToCart({id:11, name:'Mirchi Bajji', price:30})" class="btn">Add to Cart</button>
+            </div>
+
+            <div class="item-card">
+                <h3>Cut Mirchi</h3>
+                <p class="price">₹50</p>
+                <button onclick="addToCart({id:12, name:'Cut Mirchi', price:50})" class="btn">Add to Cart</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CART SECTION -->
+    <section class="cart">
+        <h2>Order Summary</h2>
+
+        <div id="cart-items"></div>
+
+        <h3 id="cart-total">Total: ₹0</h3>
+
+        <button class="whatsapp-btn" onclick="sendWhatsAppOrder()">Order on WhatsApp</button>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
