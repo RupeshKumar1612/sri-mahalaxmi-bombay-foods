@@ -15,5 +15,5 @@ cart.forEach((item, i) => {
 });
 
 document.getElementById("whatsapp-btn").onclick = () => {
-    window.open(`https://wa.me/91XXXXXXXXXX?text=${message}`);
+    window.open(`https://wa.me/919398404928?text=${message}`);
 };
